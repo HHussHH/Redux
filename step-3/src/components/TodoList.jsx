@@ -1,13 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { removeTodo, toggleTodo } from "../store/actions/todos-actions";
 import { selecetVisibleTodos } from "../store/selectors/todos-selectors";
-import { selectActiveFilter } from "../store/selectors/filters-selectors";
+
 const TodoList = () => {
-  const activeFilter = useSelector(selectActiveFilter);
-  const todos = useSelector((state) =>
-    selecetVisibleTodos(state, activeFilter)
-  );
   const dispatch = useDispatch();
+  const { filter } = useParams();
+  const todos = useSelector((state) => selecetVisibleTodos(state, filter));
   return (
     <ul>
       {todos.map((todo) => (
